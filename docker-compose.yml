@@ -1,0 +1,61 @@
+nginx:
+    restart: "always"
+    image: jonathanbaraldi/api-nginx
+    ports:
+        - "80:80"
+    links:
+        # Colocar mais nós para escalar
+        - node-1
+        # - node-2
+        
+redis:
+    restart: "always"
+    image: jonathanbaraldi/api-redis
+    ports:
+        - 6379
+
+mysql:
+    restart: "always"
+    image: mysql:latest
+    ports:
+        - 3306
+    environment:
+        MYSQL_ROOT_PASSWORD: 123
+        MYSQL_DATABASE: books
+        MYSQL_USER: apitreinamento
+        MYSQL_PASSWORD: 123 
+
+# Projeto de BACKUP em andamento
+# backup: 
+    # build: ./backup
+    # links: 
+        # - redis
+        # - mariadb
+    # ports:
+        # - 80
+    
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    # Adicionar mais nós para escalar
+
+node-1:
+    restart: "always"
+    image: jonathanbaraldi/api-node
+    links:
+        - redis
+        - mysql
+    ports:
+        - 8080
+    volumes:
+        -  volumeteste:/tmp/volumeteste
+# node-2:
+    # restart: "always"
+    # image: jonathanbaraldi/api-node
+    # links:
+        # - redis
+        # - mysql
+    # ports:
+        # - 8080
+    # volumes:
+        # -  volumeteste:/tmp/volumeteste
+    
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

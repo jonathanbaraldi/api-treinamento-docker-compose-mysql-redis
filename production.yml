@@ -1,0 +1,34 @@
+nginx:
+    logging:
+        driver: json-file
+    restart: always
+    cpu_shares: 20
+    privileged: true
+
+node1:
+    logging:
+        driver: json-file
+    restart: always
+    cpu_shares: 20
+    privileged: true
+
+node2:
+    logging:
+        driver: json-file
+    restart: always
+    cpu_shares: 20
+    privileged: true
+
+node3:
+    logging:
+        driver: json-file
+    restart: always
+    cpu_shares: 20
+    privileged: true
+
+redis:
+    logging:
+        driver: json-file
+    restart: always
+    cpu_shares: 20
+    privileged: true
